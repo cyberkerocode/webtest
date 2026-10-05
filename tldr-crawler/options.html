@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8" />
+<title>TL;DR Crawler 設定</title>
+<meta name="color-scheme" content="dark light" />
+<style>
+  :root {
+    color-scheme: dark;
+  }
+  body {
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background: #0f1115;
+    color: #e8ebf0;
+    margin: 0;
+    padding: 24px;
+    min-width: 420px;
+  }
+  h1 {
+    font-size: 18px;
+    color: #ffd166;
+    font-family: "Courier New", Consolas, monospace;
+    margin: 0 0 4px;
+  }
+  p.sub {
+    color: #9aa3b2;
+    font-size: 12px;
+    margin: 0 0 20px;
+  }
+  label {
+    display: block;
+    font-size: 13px;
+    margin: 16px 0 6px;
+    color: #cbd3e0;
+  }
+  input[type="text"],
+  input[type="password"],
+  select {
+    width: 100%;
+    box-sizing: border-box;
+    background: #1b1e26;
+    border: 1px solid #2c3140;
+    color: #e8ebf0;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+  input:focus, select:focus {
+    outline: 2px solid #5ab8ff;
+    outline-offset: 1px;
+  }
+  .row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 18px;
+  }
+  button {
+    background: #5ab8ff;
+    color: #0f1115;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 16px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  button:hover { filter: brightness(1.08); }
+  button.secondary {
+    background: transparent;
+    color: #ff4f7a;
+    border: 1px solid #ff4f7a;
+  }
+  #status {
+    margin-top: 14px;
+    font-size: 12px;
+    min-height: 16px;
+  }
+  #status.ok { color: #7be08b; }
+  #status.err { color: #ff6b6b; }
+  .note {
+    margin-top: 28px;
+    padding: 12px 14px;
+    background: #171a21;
+    border: 1px solid #262b36;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #9aa3b2;
+    line-height: 1.5;
+  }
+  .toggle-visibility {
+    background: #1b1e26;
+    color: #cbd3e0;
+    border: 1px solid #2c3140;
+    padding: 8px 10px;
+  }
+</style>
+</head>
+<body>
+  <h1>TL;DR CRAWLER</h1>
+  <p class="sub">可選嘅 Anthropic(Claude)設定,俾 AI 生成摘要用。</p>
+
+  <label for="apiKey">Anthropic API 金鑰</label>
+  <div class="row">
+    <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off" />
+    <button type="button" class="toggle-visibility" id="toggleKey">顯示</button>
+  </div>
+
+  <label for="model">模型</label>
+  <input type="text" id="model" placeholder="claude-3-5-haiku-20241022" />
+
+  <div class="row">
+    <button type="button" id="save">儲存</button>
+    <button type="button" class="secondary" id="clear">清除金鑰</button>
+  </div>
+
+  <div id="status" role="status"></div>
+
+  <div class="note">
+    你嘅 API 金鑰淨係儲存喺呢個瀏覽器嘅本機 extension storage
+    (<code>chrome.storage.local</code>),只會由 extension 嘅 background
+    service worker 直接送去
+    <code>https://api.anthropic.com</code>。唔會寫死喺 source code 入面,
+    唔會記錄落 log,亦都唔會俾你瀏覽緊嘅網頁見到。留空個金鑰,TL;DR
+    Crawler 一樣用得,會改用本機嘅後備摘要,完全唔使上網。
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
